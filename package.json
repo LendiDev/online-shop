@@ -1,0 +1,35 @@
+{
+  "name": "online-shop",
+  "version": "0.0.1",
+  "description": "Basic Online Shop based on NodeJS and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon -e js,ejs,html,css app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LendiDev/online-shop.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "MongoDB",
+    "JavaScript",
+    "HTML",
+    "CSS"
+  ],
+  "author": "Nikita Lendiak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LendiDev/online-shop/issues"
+  },
+  "homepage": "https://github.com/LendiDev/online-shop#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
