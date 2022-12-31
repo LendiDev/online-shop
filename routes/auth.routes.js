@@ -7,4 +7,6 @@ const routes = express.Router();
 routes.get('/login', AuthController.getLogin);
 routes.get('/signup', AuthController.getSignup);
 
+routes.post('/signup', AuthController.signup);
+
 module.exports = routes;
