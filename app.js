@@ -13,8 +13,9 @@ app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/customer/"),
 ]);
-
 app.use(express.static("public"));
+
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -36,6 +37,6 @@ db.connectToDatabase()
     app.listen(process.env.PORT || 3000);
   })
   .catch((error) => {
-    console.log('Failed to connect to database');
+    console.log("Failed to connect to database");
     console.log(error);
   });
