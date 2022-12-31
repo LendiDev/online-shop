@@ -1,0 +1,66 @@
+<%- include('includes/head', { pageTitle: 'Sign up' }) %>
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>Create New Account</h1>
+    <form action="" method="POST">
+      <p>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+      </p>
+      <p>
+        <label for="confirm-email">Confirm Email</label>
+        <input type="email" name="confirm-email" id="confirm-email" required />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+          minlength="6"
+        />
+      </p>
+      <hr />
+      <p>
+        <label for="fullname">Full Name</label>
+        <input type="text" name="full-name" id="fullname" required />
+      </p>
+      <p>
+        <label for="street">Street</label>
+        <input type="text" name="street" id="street" required />
+      </p>
+      <p>
+        <label for="postcode">Post code</label>
+        <input
+          type="text"
+          name="postcode"
+          id="postcode"
+          minlength="4"
+          required
+        />
+      </p>
+      <p>
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" required />
+      </p>
+      <!-- TODO: add options based on DB. (PS. Website don't ship WORLDWIDE and don't want to update manually)  -->
+      <p>
+        <label for="country">Country</label>
+        <select name="country" id="country" required>
+          <option value="" selected disabled hidden>Select country</option>
+          <option value="uk">United Kingdom</option>
+          <option value="us">United States of America</option>
+          <option value="sp">Spain</option>
+          <option value="fr">France</option>
+        </select>
+      </p>
+
+      <button class="btn">Create Account</button>
+      <p id="switch-form"><a href="/login">Login instead</a></p>
+    </form>
+  </main>
+  <%- include('includes/footer') %>
+</body>

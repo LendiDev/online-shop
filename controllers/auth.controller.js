@@ -1,9 +1,9 @@
 const getLogin = (req, res) => {
-  res.render('pages/auth/login');
+  res.render('customer/auth/login');
 }
 
 const getSignup = (req, res) => {
-  res.render('pages/auth/signup');
+  res.render('customer/auth/signup');
 }
 
 module.exports = {
