@@ -1,4 +1,6 @@
 <%- include('includes/head', { pageTitle: 'Sign up' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+  <link rel="stylesheet" href="/styles/auth.css">
 </head>
 <body>
   <%- include('includes/header') %>
@@ -7,7 +9,7 @@
     <form action="" method="POST">
       <p>
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" required />
+        <input type="email" name="email" id="email" autocomplete="off" required  />
       </p>
       <p>
         <label for="confirm-email">Confirm Email</label>
@@ -46,7 +48,7 @@
         <label for="city">City</label>
         <input type="text" name="city" id="city" required />
       </p>
-      <!-- TODO: add options based on DB. (PS. Website don't ship WORLDWIDE and don't want to update manually)  -->
+      <!-- TODO: add options based on DB. (PS. Website don't ship WORLDWIDE and don't want to update manually, however they allow to register with other)  -->
       <p>
         <label for="country">Country</label>
         <select name="country" id="country" required>
@@ -55,6 +57,7 @@
           <option value="us">United States of America</option>
           <option value="sp">Spain</option>
           <option value="fr">France</option>
+          <option value="other">Other</option>
         </select>
       </p>
 
