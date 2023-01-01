@@ -30,18 +30,17 @@ class User {
     return result;
   };
 
-  getUser = async () => {
-    const result = await db
-      .getDb()
-      .collection("users")
-      .findOne({ email: this.email });
-
-    return result;
+  getUserWithSameEmail = () => {
+    return db.getDb().collection("users").findOne({ email: this.email });
   };
 
   // TODO: handle is user exists
   alreadyExists = async () => {
-    return await this.getUser() ? true : false;
+    return (await this.getUserWithSameEmail()) ? true : false;
+  };
+
+  passwordsAreMatching = (hashedPassword) => {
+    return bcrypt.compare(this.password, hashedPassword);
   };
 }
 

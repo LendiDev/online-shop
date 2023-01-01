@@ -6,7 +6,7 @@
   <%- include('includes/header') %>
   <main>
     <h1>Login</h1>
-    <form action="" method="POST">
+    <form action="/login" method="POST">
       <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
       <p>
         <label for="email">Email</label>
@@ -23,7 +23,7 @@
         />
       </p>
 
-      <button class="btn">Create Account</button>
+      <button class="btn">Login</button>
       <p id="switch-form"><a href="/signup">Create a new account</a></p>
     </form>
   </main>

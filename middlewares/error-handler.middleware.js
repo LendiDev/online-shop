@@ -4,7 +4,7 @@ const handleErrors = (error, req, res, next) => {
 };
 
 const handleNotFound = (req, res) => {
-  return res.status(404).render("errors/404");
+  res.status(404).render("errors/404");
 };
 
 module.exports = { 

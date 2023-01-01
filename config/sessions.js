@@ -1,8 +1,9 @@
+const session = require("express-session");
 const mongoDbStore = require("connect-mongodb-session");
 
-
-const sessionStore = (session) => {
+const createSessionStore = () => {
   const MongoDBStore = mongoDbStore(session);
+
   return new MongoDBStore({
     uri: process.env.MONGODB_URI,
     databaseName: process.env.MONGODB_DB_NAME,
@@ -10,14 +11,16 @@ const sessionStore = (session) => {
   });
 }
 
-const sessionConfig = (session) => {
+const sessionConfig = () => {
   return {
     secret: process.env.SESSION_SECRET || "hardcoded secret",
     resave: false,
     saveUninitialized: false,
-    store: sessionStore(session),
+    store: createSessionStore(),
+    cookie: {
+      maxAge: 2 * 24 * 60 * 60 * 1000 // 2 days
+    }
   }
 }
-
 
 module.exports = sessionConfig;

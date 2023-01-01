@@ -1,5 +1,7 @@
 const User = require("../models/user.models");
 
+const authUtil = require('../utils/authentication');
+
 const getLogin = (req, res) => {
   res.render("customer/auth/login");
 };
@@ -24,7 +26,7 @@ const signup = async (req, res) => {
   if (userAlreadyExists) {
     //TODO: handle error
     console.log("user already exists");
-    return res.redirect('/signup');
+    return res.redirect("/signup");
   }
 
   // TODO: validate entered data
@@ -38,11 +40,34 @@ const signup = async (req, res) => {
   // TODO: validate if user isn't exist already (email not in database)
   // TODO: hash the password
   // TODO: add new account to the database
-  res.redirect('/login');
+  res.redirect("/login");
+};
+
+const login = async (req, res) => {
+  const user = new User(req.body.email, req.body.password);
+  const existingUser = await user.getUserWithSameEmail();
+
+  if (!existingUser) {
+    console.log('Cannot login - user does not exists. Try again.')
+    return res.redirect('/login');
+  }
+
+  const passwordIsCorrect = await user.passwordsAreMatching(existingUser.password);
+
+  if (!passwordIsCorrect) {
+    console.log('Cannot login - wrong password. Try again.')
+    return res.redirect('/login');
+  }
+
+  authUtil.createUserSession(req, existingUser, () => {
+    res.redirect('products/')
+  });
+  
 };
 
 module.exports = {
   getLogin,
   getSignup,
   signup,
+  login,
 };
