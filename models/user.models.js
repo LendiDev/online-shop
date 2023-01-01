@@ -36,7 +36,8 @@ class User {
 
   // TODO: handle is user exists
   alreadyExists = async () => {
-    return (await this.getUserWithSameEmail()) ? true : false;
+    const existingUser = await this.getUserWithSameEmail();
+    return existingUser ? true : false;
   };
 
   passwordsAreMatching = (hashedPassword) => {

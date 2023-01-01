@@ -43,6 +43,42 @@ const emailIsValid = (email) => {
   );
 };
 
+const isEmpty = (value) => {
+  return !value || value.trim() === "";
+};
+
+const userCredentialsAreValid = (email, password) => {
+  return email &&
+  emailIsValid(email) &&
+  password &&
+  password.trim().length >= 8
+}
+
+const userDetailsAreValid = (
+  email,
+  password,
+  name,
+  street,
+  postcode,
+  city,
+  country
+) => {
+  return (
+    userCredentialsAreValid(email, password) &&
+    !isEmpty(name) &&
+    !isEmpty(street) &&
+    !isEmpty(postcode) &&
+    !isEmpty(city) &&
+    !isEmpty(country)
+  );
+};
+
+const emailIsConfirmed = (email, confirmEmail) => {
+  return email === confirmEmail;
+}
+
 module.exports = {
   passwordIsStrong,
+  userDetailsAreValid,
+  emailIsConfirmed
 };
