@@ -7,9 +7,10 @@
   <main>
     <h1>Create New Account</h1>
     <form action="" method="POST">
+      <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
       <p>
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" autocomplete="off" required  />
+        <input type="email" name="email" id="email" required  />
       </p>
       <p>
         <label for="confirm-email">Confirm Email</label>

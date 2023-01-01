@@ -1,4 +1,31 @@
-<%- include('includes/head', { pageTitle: 'Login' }) %>
-<%- include('includes/header') %>
-<h1>Welcome to login... form is on a way :-)</h1>
-<%- include('includes/footer') %>
+<%- include('includes/head', { pageTitle: 'Sign up' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>Login</h1>
+    <form action="" method="POST">
+      <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
+      <p>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required  />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+          minlength="6"
+        />
+      </p>
+
+      <button class="btn">Create Account</button>
+      <p id="switch-form"><a href="/signup">Create a new account</a></p>
+    </form>
+  </main>
+  <%- include('includes/footer') %>
+</body>

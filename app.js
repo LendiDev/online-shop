@@ -1,9 +1,16 @@
 require("dotenv").config();
 const path = require("path");
+
 const express = require("express");
 
-const db = require("./database/database");
+const session = require("express-session");
+const csrf = require("csurf");
 
+const addCsrfTokenMiddleware = require("./middlewares/csrf-token.middleware");
+const sessionsMiddleware = require("./middlewares/sessions.middleware");
+const errorsHandlerMiddleware = require("./middlewares/error-handler.middleware");
+
+const db = require("./database/database");
 const authRoutes = require("./routes/auth.routes");
 
 const app = express();
@@ -11,26 +18,24 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", [
   path.join(__dirname, "views"),
-  path.join(__dirname, "views/customer/"),
+  path.join(__dirname, "views/includes/"),
 ]);
-app.use(express.static("public"));
 
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
+
+app.use(session(sessionsMiddleware(session)));
+app.use(csrf());
+app.use(addCsrfTokenMiddleware);
 
 app.get("/", (req, res) => {
   res.render("home");
 });
-
+ 
 app.use(authRoutes);
 
-app.use((error, req, res, next) => {
-  console.log(error);
-  res.status(500).render("errors/500");
-});
-
-app.use("*", (req, res) => {
-  res.status(404).render("errors/404");
-});
+app.use(errorsHandlerMiddleware.handleErrors);
+app.use("*", errorsHandlerMiddleware.handleNotFound);
 
 db.connectToDatabase()
   .then(() => {
