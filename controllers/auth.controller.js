@@ -10,7 +10,7 @@ const getSignup = (req, res) => {
   res.render("customer/auth/signup");
 };
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const newUser = new User(
     req.body.email,
     req.body.password,
@@ -35,7 +35,11 @@ const signup = async (req, res) => {
   // such as postcode matching the country requirements
   // collect all the errors and then return to the SIGNUP page with all the errors...
 
-  await newUser.signup();
+  try {
+    await newUser.signup();
+  } catch (error) {
+    return next(error);
+  }
 
   // TODO: validate if user isn't exist already (email not in database)
   // TODO: hash the password
@@ -43,16 +47,27 @@ const signup = async (req, res) => {
   res.redirect("/login");
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const user = new User(req.body.email, req.body.password);
-  const existingUser = await user.getUserWithSameEmail();
+
+  let existingUser;
+  try {
+    existingUser = await user.getUserWithSameEmail();
+  } catch (error) {
+    return next(error);
+  }
 
   if (!existingUser) {
     console.log('Cannot login - user does not exists. Try again.')
     return res.redirect('/login');
   }
 
-  const passwordIsCorrect = await user.passwordsAreMatching(existingUser.password);
+  let passwordIsCorrect;
+  try {
+    passwordIsCorrect = await user.passwordsAreMatching(existingUser.password);
+  } catch (error) {
+    return next(error);
+  }
 
   if (!passwordIsCorrect) {
     console.log('Cannot login - wrong password. Try again.')
@@ -65,9 +80,15 @@ const login = async (req, res) => {
   
 };
 
+const logout = (req, res) => {
+  authUtil.destroyUserAuthSession(req);
+  res.redirect('/');
+};
+
 module.exports = {
   getLogin,
   getSignup,
   signup,
   login,
+  logout,
 };
