@@ -47,9 +47,10 @@ body {
 }
 
 main {
-  width: 90%;
-  max-width: 50rem;
+  width: 100%;
+  max-width: 60rem;
   margin: 0 auto;
+  padding: 0 var(--space-4);
 }
 
 ul,
@@ -95,4 +96,9 @@ a {
 
 .error p {
   margin: var(--space-2);
+}
+
+#logo {
+  font-size: 1.75rem;
+  font-weight: bold;
 }

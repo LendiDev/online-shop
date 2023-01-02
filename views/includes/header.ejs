@@ -1,35 +1,16 @@
-<header>
-  <div><a href="/">TE</a></div>
+<header id="main-header">
+  <div id="logo"><a href="/">TEssentials</a></div>
   <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-
-      <% if (!locals.isAdmin) { %>
-        <li><a href="/cart">Cart</a></li>
-      <% } %> 
-
-      <% if (locals.isAuth && !locals.isAdmin) { %>
-          <li><a href="/orders">Orders</a></li>
-      <% } %> 
-
-      <% if (locals.isAdmin) { %>
-        <li><a href="/admin/products">Manage Products</a></li>
-        <li><a href="/admin/products">Manage Orders</a></li>
-      <% } %>
-
-      <% if (!locals.isAuth) { %>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/signup">Signup</a></li>
-      <% } %> 
-      
-      <% if (locals.isAuth) { %>
-        <li>
-          <form action="/logout" method="POST">
-            <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
-            <button class="btn">Logout</button>
-          </form>
-        </li>
-      <% } %>
-    </ul>
+    <%- include('nav-items') %> 
   </nav>
+  <a href="/" id="mobile-menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </a>
 </header>
+<aside id="mobile-menu">
+  <nav>
+    <%- include('nav-items') %> 
+  </nav>
+</aside>
