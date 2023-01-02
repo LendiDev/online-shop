@@ -6,7 +6,12 @@ const getNewProduct = (req, res) => {
   res.render("admin/products/new-product");
 };
 
+const createNewProduct = async (req, res) => {
+  res.render("admin/products/new-product");
+};
+
 module.exports = {
   getAllProducts,
-  getNewProduct
+  getNewProduct,
+  createNewProduct
 }

@@ -5,12 +5,13 @@ textarea {
   padding: var(--space-2);
   border-radius: var(--border-radius-medium);
   border: none;
-  width: 90%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 form hr {
   border-color: var(--color-primary-200);
-  margin: var(--space-6) var(--space-4);
+  margin: var(--space-6) 0;
 }
 
 label {
