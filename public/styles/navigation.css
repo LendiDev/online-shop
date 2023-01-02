@@ -24,7 +24,7 @@
 }
 
 .nav-items a {
-  padding: var(--space-2) var(--space-6);
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--border-radius-medium);
 }
 .nav-items a:hover,

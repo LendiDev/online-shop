@@ -1,5 +1,5 @@
 <ul class="nav-items">
-  <li><a href="/">Home</a></li>
+  <li><a href="/">Shop</a></li>
 
   <% if (!locals.isAdmin) { %>
     <li><a href="/cart">Cart</a></li>
@@ -20,6 +20,7 @@
   <% } %> 
   
   <% if (locals.isAuth) { %>
+    <li><a href="/account">Account</a></li>
     <li>
       <form id="logout-btn" action="/logout" method="POST">
         <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
