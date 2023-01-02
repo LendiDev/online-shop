@@ -18,6 +18,7 @@ const db = require("./database/database");
 const authRoutes = require("./routes/auth.routes");
 const baseRoutes = require("./routes/base.routes");
 const productsRoutes = require("./routes/products.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(authCheckStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productsRoutes);
+app.use('/admin/', adminRoutes);
 
 app.use(handleErrors);
 app.use(handleNotFound);

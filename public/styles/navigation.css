@@ -47,6 +47,10 @@
   background-color: var(--color-gray-400);
 }
 
+#logout-btn {
+  background-color: transparent;
+}
+
 #mobile-menu {
   display: none;
 }
