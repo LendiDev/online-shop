@@ -80,5 +80,6 @@ const emailIsConfirmed = (email, confirmEmail) => {
 module.exports = {
   passwordIsStrong,
   userDetailsAreValid,
-  emailIsConfirmed
+  emailIsConfirmed,
+  emailIsValid
 };

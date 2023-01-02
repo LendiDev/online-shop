@@ -3,14 +3,42 @@ const authUtil = require("../utils/authentication");
 const {
   userDetailsAreValid,
   emailIsConfirmed,
+  emailIsValid
 } = require("../utils/validation");
+const sessionFlash = require("../utils/session-flash");
 
 const getLogin = (req, res) => {
-  res.render("customer/auth/login");
+  let flashData = sessionFlash.getSessionData(req);
+
+  if (!flashData) {
+    flashData = {
+      errorMessage: '',
+      email: '',
+      password: '',
+    }
+  }
+
+  res.render("customer/auth/login", { inputData: flashData });
 };
 
 const getSignup = (req, res) => {
-  res.render("customer/auth/signup");
+  let flashData = sessionFlash.getSessionData(req);
+
+  if (!flashData) {
+    flashData = {
+      errorMessage: '',
+      email: '',
+      'confirm-email': '',
+      password: '',
+      'full-name': '',
+      street: '',
+      postcode: '',
+      city: '',
+      country: '',
+    }
+  }
+
+  res.render("customer/auth/signup", { inputData: flashData });
 };
 
 const signup = async (req, res, next) => {
@@ -19,38 +47,58 @@ const signup = async (req, res, next) => {
   // such as password strong enough
   // such as postcode matching the country requirements
   // collect all the errors and then return to the SIGNUP page with all the errors...
+  const enteredData = req.body;
 
   if (
     !userDetailsAreValid(
-      req.body.email,
-      req.body.password,
-      req.body["full-name"],
-      req.body.street,
-      req.body.postcode,
-      req.body.city,
-      req.body.country
+      enteredData.email,
+      enteredData.password,
+      enteredData["full-name"],
+      enteredData.street,
+      enteredData.postcode,
+      enteredData.city,
+      enteredData.country
     ) ||
-    !emailIsConfirmed(req.body.email, req.body["confirm-email"])
+    !emailIsConfirmed(enteredData.email, enteredData["confirm-email"])
   ) {
-    return res.redirect("/signup");
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: "Please check your inputs",
+        ...enteredData,
+      },
+      () => {
+        res.redirect("/signup");
+      }
+    );
+    return;
   }
 
   const newUser = new User(
-    req.body.email,
-    req.body.password,
-    req.body["full-name"],
-    req.body.street,
-    req.body.postcode,
-    req.body.city,
-    req.body.country
+    enteredData.email,
+    enteredData.password,
+    enteredData["full-name"],
+    enteredData.street,
+    enteredData.postcode,
+    enteredData.city,
+    enteredData.country
   );
 
   try {
     const userAlreadyExists = await newUser.alreadyExists();
 
     if (userAlreadyExists) {
-      console.log("user already exists");
-      return res.redirect("/signup");
+      sessionFlash.flashDataToSession(
+        req,
+        {
+          errorMessage: "User already exists! Try login instead!",
+          ...enteredData,
+        },
+        () => {
+          res.redirect("/signup");
+        }
+      );
+      return;
     }
 
     await newUser.signup();
@@ -64,6 +112,21 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
   const user = new User(req.body.email, req.body.password);
 
+  if (!emailIsValid(user.email)) {
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: "Invalid user credentials (e-mail format is incorrect)",
+        email: user.email,
+        password: user.password,
+      },
+      () => {
+        res.redirect("/login");
+      }
+    );
+    return;
+  }
+
   let existingUser;
   try {
     existingUser = await user.getUserWithSameEmail();
@@ -72,8 +135,18 @@ const login = async (req, res, next) => {
   }
 
   if (!existingUser) {
-    console.log("Cannot login - user does not exists. Try again.");
-    return res.redirect("/login");
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: "Invalid user credentials",
+        email: user.email,
+        password: user.password,
+      },
+      () => {
+        res.redirect("/login");
+      }
+    );
+    return;
   }
 
   let passwordIsCorrect;
@@ -84,8 +157,18 @@ const login = async (req, res, next) => {
   }
 
   if (!passwordIsCorrect) {
-    console.log("Cannot login - wrong password. Try again.");
-    return res.redirect("/login");
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: "Invalid user credentials",
+        email: user.email,
+        password: user.password,
+      },
+      () => {
+        res.redirect("/login");
+      }
+    );
+    return;
   }
 
   authUtil.createUserSession(req, existingUser, () => {
