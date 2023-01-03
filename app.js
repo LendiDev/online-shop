@@ -29,6 +29,7 @@ app.set("views", [
 ]);
 
 app.use(express.static("public"));
+app.use('/products/assets/images', express.static('uploads/product-images'))
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session(sessionsConfig()));
