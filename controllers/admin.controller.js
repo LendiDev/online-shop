@@ -64,7 +64,7 @@ const deleteProduct = async (req, res, next) => {
     return next(error);
   }
 
-  res.redirect("/admin/products");
+  res.json({ message: "Product deleted!" });
 };
 
 module.exports = {
@@ -73,5 +73,5 @@ module.exports = {
   getEditProduct,
   createNewProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

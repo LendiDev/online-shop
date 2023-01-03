@@ -54,7 +54,7 @@ class Product {
   delete = () => {
     try {
       const productId = new ObjectId(this.id);
-      return db.getDb().collection('product').deleteOne({ _id: productId });
+      return db.getDb().collection('products').deleteOne({ _id: productId });
     } catch (error) {
       throw error;
     }
