@@ -70,7 +70,8 @@ footer p {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.75rem;
+  font-weight: 900;
 }
 
 ul,
@@ -129,6 +130,6 @@ a {
 }
 
 #logo {
-  font-size: 1.75rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 900;
 }

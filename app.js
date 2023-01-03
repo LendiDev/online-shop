@@ -12,6 +12,7 @@ const {
   handleNotFound,
 } = require("./middlewares/error-handler.middleware");
 const authCheckStatusMiddleware = require("./middlewares/check-auth.middleware");
+const routesProtectionMiddleware = require("./middlewares/routes-protection.middleware");
 
 const sessionsConfig = require("./config/sessions");
 const db = require("./database/database");
@@ -41,6 +42,7 @@ app.use(authCheckStatusMiddleware);
 app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productsRoutes);
+app.use(routesProtectionMiddleware);
 app.use('/admin/', adminRoutes);
 
 app.use(handleErrors);
