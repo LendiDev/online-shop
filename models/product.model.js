@@ -51,6 +51,15 @@ class Product {
     this.imageURL = `/products/assets/images/${this.image}`;
   };
 
+  delete = () => {
+    try {
+      const productId = new ObjectId(this.id);
+      return db.getDb().collection('product').deleteOne({ _id: productId });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   save = async () => {
     const productData = {
       title: this.title,

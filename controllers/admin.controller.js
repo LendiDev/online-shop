@@ -48,8 +48,19 @@ const updateProduct = async (req, res, next) => {
 
   try {
     await product.save();
-  } catch(error) {
+  } catch (error) {
     error.code = 404;
+    return next(error);
+  }
+
+  res.redirect("/admin/products");
+};
+
+const deleteProduct = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    await product.delete();
+  } catch (error) {
     return next(error);
   }
 
@@ -62,4 +73,5 @@ module.exports = {
   getEditProduct,
   createNewProduct,
   updateProduct,
+  deleteProduct
 };
