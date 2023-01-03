@@ -1,4 +1,7 @@
+const mongodb = require("mongodb");
 const db = require("../database/database");
+
+const ObjectId = mongodb.ObjectId;
 
 class Product {
   constructor(productData) {
@@ -10,8 +13,7 @@ class Product {
     this.price = +productData.price;
     this.description = productData.description;
     this.image = productData.image;
-    this.imagePath = `uploads/product-images/${productData.image}`;
-    this.imageURL = `/products/assets/images/${productData.image}`;
+    this.updateImageData();
   }
 
   static findAll = async () => {
@@ -21,17 +23,68 @@ class Product {
     });
   };
 
+  static findById = async (productId) => {
+    let prodId;
+    try {
+      prodId = new ObjectId(productId);
+    } catch (error) {
+      error.code = 404;
+      throw error;
+    }
+
+    const product = await db
+      .getDb()
+      .collection("products")
+      .findOne({ _id: prodId });
+
+    if (!product) {
+      const error = new Error(`Unable find the product with id ${productId}!`);
+      error.code = 404;
+      throw error;
+    }
+
+    return new Product(product);
+  };
+
+  updateImageData = () => {
+    this.imagePath = `uploads/product-images/${this.image}`;
+    this.imageURL = `/products/assets/images/${this.image}`;
+  };
+
   save = async () => {
-    const result = await db.getDb().collection("products").insertOne({
+    const productData = {
       title: this.title,
       summary: this.summary,
       price: this.price,
       description: this.description,
       image: this.image,
-    });
+    }
+
+    let result;
+    if (this.id) {
+      try {
+        const productId = new ObjectId(this.id);
+
+        if (!this.image) {
+          delete productData.image;
+        }
+
+        result = await db.getDb().collection("products").updateOne({ _id: productId}, { $set: productData });
+      } catch (error) {
+        error.code = 404;
+        throw error;
+      }
+    } else {
+      result = await db.getDb().collection("products").insertOne(productData);
+    }
 
     return result;
   };
+
+  replaceImage = async (newImage) => {
+    this.image = newImage;
+    this.updateImageData();
+  }
 }
 
 module.exports = Product;

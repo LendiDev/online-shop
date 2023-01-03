@@ -19,3 +19,15 @@ label {
   display: block;
   margin-bottom: var(--space-2);
 }
+
+#image-preview-container {
+  display: none;
+}
+
+#image-preview-container img {
+  width: 20rem;
+  height: 15rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--border-radius-large);
+}

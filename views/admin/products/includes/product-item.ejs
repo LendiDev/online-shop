@@ -2,7 +2,7 @@
   <img src="<%= product.imageURL %>" alt="Image of <%= product.title %>" />
   <h2><%= product.title %></h2>
   <div class="product-actions">
-    <a class="btn" href="products/<%= product.id %>/edit">View & Edit</a>
+    <a class="btn" href="/admin/products/edit/<%= product.id %>">View & Edit</a>
     <button class="btn btn-alt">Delete</button>
   </div>
 </article>
