@@ -1,0 +1,25 @@
+<%- include('includes/head', { pageTitle: product.title }) %>
+  <link rel="stylesheet" href="/styles/products.css">
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main id="product-details">
+    <header>
+      <img src="<%= product.imageURL %>" alt="<%= product.title %>">
+      <div id="product-info">
+        <h2><%= product.title %></h2>
+        <p>
+          $<%= product.price.toFixed(2) %>
+        </p>
+        <form>
+          <button class="btn">Add to cart</button>
+        </form>
+      </div>
+    </header>
+    <section>
+      <h3>Description</h3>
+      <p id="product-description"><%= product.description %></p>
+    </section>
+  </main>
+  <%- include('includes/footer') %>
+</body>
