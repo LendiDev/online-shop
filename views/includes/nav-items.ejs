@@ -3,7 +3,7 @@
   <li><a href="/products">Products</a></li>
 
   <% if (!locals.isAdmin) { %>
-    <li><a href="/cart">Cart</a></li>
+    <li><a href="/cart">Cart <span class='badge'><%= locals.cart.totalQuantity %></span></a></li>
   <% } %> 
 
   <% if (locals.isAuth && !locals.isAdmin) { %>

@@ -90,6 +90,7 @@ a {
   font: inherit;
   cursor: pointer;
   padding: var(--space-2) var(--space-4);
+  margin: 0;
   background-color: var(--color-primary-500);
   color: var(--color-primary-500-contrast);
   border: 1px solid var(--color-primary-400);
@@ -132,4 +133,15 @@ a {
 #logo {
   font-size: 2rem;
   font-weight: 900;
+}
+
+.badge {
+  display: inline-flex;
+  background-color: var(--color-primary-400);
+  border-radius: 20rem;
+  color: var(--color-primary-500-contrast);
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--space-2);
+  margin-left: var(--space-1);
 }

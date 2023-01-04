@@ -1,5 +1,6 @@
 <%- include('includes/head', { pageTitle: product.title }) %>
   <link rel="stylesheet" href="/styles/products.css">
+  <script src="/scripts/cart.js" defer></script>
 </head>
 <body>
   <%- include('includes/header') %>
@@ -12,13 +13,17 @@
           $<%= product.price.toFixed(2) %>
         </p>
         <form>
-          <button class="btn">Add to cart</button>
+          <button class="btn" data-product-id="<%= product.id %>" data-csrf-token="<%= locals.csrfToken %>">Add to cart</button>
         </form>
       </div>
     </header>
     <section>
       <h3>Description</h3>
       <p id="product-description"><%= product.description %></p>
+    </section>
+    <section>
+      <h3>Reviews</h3>
+      <p>No reviews yet...</p>
     </section>
   </main>
   <%- include('includes/footer') %>
