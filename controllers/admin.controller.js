@@ -33,7 +33,8 @@ const createNewProduct = async (req, res, next) => {
   try {
     await newProduct.save();
   } catch (error) {
-    next(error);
+    console.table(error);
+    return next(error);
   }
 
   res.redirect("/admin/products");
