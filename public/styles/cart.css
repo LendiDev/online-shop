@@ -26,7 +26,7 @@
   font-size: 1.5rem;
 }
 
-.cart-item-info p span {
+.cart-item-original-price {
   color: var(--color-gray-200);
   font-style: italic;
 }
@@ -39,10 +39,11 @@
 }
 
 .cart-item-actions input {
-  margin: var(--space-4);
+  margin: var(--space-8);
   text-align: center;
   font: inherit;
-  height: 2rem;
+  font-size: 1.25rem;
+  height: 2.25rem;
   width: 3rem;
   border-radius: var(--border-radius-medium);
   border: 0;
@@ -61,10 +62,20 @@
   color: var(--color-primary-400);
 }
 
+.cart-item-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-buttons button {
+  margin: var(--space-1);
+  margin-right: 0;
+}
+
 @media (max-width: 48rem) {
   .cart-item {
     flex-direction: column;
-    gap: var(--space-4);
+    gap: 0;
   }
 
   .cart-item img {
@@ -72,6 +83,33 @@
     height: 12.5rem;
     object-fit: cover;
     border-radius: var(--border-radius-large);
+  }
+
+  .cart-item-info {
+    margin-top: var(--space-4);
+  }
+
+  .cart-item-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .cart-item-actions input {
+    margin-top: 0;
+    margin-bottom: var(--space-4);
+  }
+
+  .cart-item-buttons {
+    width: 100%;
+  }
+
+  .cart-item-buttons button {
+    height: 3rem;
+  }
+
+  .cart-total button {
+    width: 100%;
+    height: 3rem;
   }
 
   .cart-total {

@@ -2,17 +2,27 @@
   <img src="<%= item.product.imageURL %>" alt="<%= item.product.title %>" />
   <div class="cart-item-info">
     <h2><%= item.product.title %></h2>
-    <p>$<%= item.totalPrice.toFixed(2) %> <span>($<%= item.product.price.toFixed(2) %>)</span></p>
+    <p>
+      $<span class="cart-item-price"><%= item.totalPrice.toFixed(2) %></span>
+      <span class="cart-item-original-price">($<%= item.product.price.toFixed(2) %>)</span>
+    </p>
   </div>
-  <div class="cart-item-actions">
+  <form
+    class="cart-item-actions"
+    data-product-id="<%= item.product.id%>"
+    data-csrf-token="<%= locals.csrfToken %>"
+  >
     <input
       type="number"
+      name="quantity"
       step="1"
       value="<%= item.quantity %>"
-      min="0"
-      max="9999"
+
       required
     />
-    <button class="btn btn-alt">Update</button>
-  </div>
+    <div class="cart-item-buttons">
+      <button class="btn btn-alt">Update</button>
+      <button type="button" class="btn btn-alt btn-remove">Remove</button>
+    </div>
+  </form>
 </article>

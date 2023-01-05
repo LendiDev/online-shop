@@ -26,6 +26,8 @@ html {
   --color-error-100: rgb(255, 192, 180);
   --color-error-500: rgb(199, 51, 15);
 
+  --color-remove-500: rgb(224, 106, 77);
+
   --color-primary-500-bg: rgb(63, 60, 58);
 
   --space-1: 0.25rem;
@@ -96,6 +98,7 @@ a {
   color: var(--color-primary-500-contrast);
   border: 1px solid var(--color-primary-400);
   border-radius: var(--border-radius-small);
+  text-align: center;
 }
 
 .btn:active,
@@ -112,6 +115,17 @@ a {
 .btn-alt:active,
 .btn-alt:hover {
   background-color: var(--color-primary-500-bg);
+}
+
+.btn-remove {
+  background-color: transparent;
+  color: var(--color-remove-500);
+  border: 0;
+}
+
+.btn-remove:active,
+.btn-remove:hover {
+  color: var(--color-error-100);
 }
 
 .error {
