@@ -34,3 +34,8 @@ jobs:
 
       - name: Run Jest Tests
         run: npm run test
+        env:
+          MONGODB_URI: ${{ env.MONGODB_URI }}
+          MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}
+          SESSION_SECRET: ${{ env.SESSION_SECRET }}
+          NODE_ENV: test
