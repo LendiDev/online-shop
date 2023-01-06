@@ -36,8 +36,8 @@ const updateCartItem = (req, res, next) => {
     message: "Cart Item Updated!",
     updatedCartData: {
       newTotalQuantity: cart.totalQuantity,
-      newTotalAmount: cart.totalAmount.toFixed(2),
-      newItemPrice: updatedItemData?.updatedItemPrice ? updatedItemData.updatedItemPrice.toFixed(2) : 'error',
+      newTotalAmount: cart.totalAmount.toFixed(2).replace('-0', '0'),
+      newItemPrice: updatedItemData?.updatedItemPrice ? updatedItemData.updatedItemPrice.toFixed(2) : 'remove',
     },
   });
 };

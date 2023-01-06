@@ -1,28 +1,42 @@
 <article class="cart-item">
   <img src="<%= item.product.imageURL %>" alt="<%= item.product.title %>" />
   <div class="cart-item-info">
-    <h2><%= item.product.title %></h2>
+    <h2>
+      <a href="/products/<%= item.product.id%>"><%= item.product.title %></a>
+    </h2>
     <p>
       $<span class="cart-item-price"><%= item.totalPrice.toFixed(2) %></span>
-      <span class="cart-item-original-price">($<%= item.product.price.toFixed(2) %>)</span>
+      <span class="cart-item-original-price"
+        >($<%= item.product.price.toFixed(2) %>)</span
+      >
     </p>
-  </div>
-  <form
-    class="cart-item-actions"
-    data-product-id="<%= item.product.id%>"
-    data-csrf-token="<%= locals.csrfToken %>"
-  >
-    <input
-      type="number"
-      name="quantity"
-      step="1"
-      value="<%= item.quantity %>"
-
-      required
-    />
-    <div class="cart-item-buttons">
-      <button class="btn btn-alt">Update</button>
-      <button type="button" class="btn btn-alt btn-remove">Remove</button>
+    <div
+      class="cart-item-quantity-action"
+      data-product-id="<%= item.product.id%>"
+      data-csrf-token="<%= locals.csrfToken %>"
+    >
+      <button data-action="decrease" class="btn btn-alt">-</button>
+      <input
+        type="number"
+        name="quantity"
+        step="1"
+        min="0"
+        max="99"
+        value="<%= item.quantity %>"
+        required
+        disabled
+      />
+      <button data-action="increase" class="btn btn-alt">+</button>
     </div>
-  </form>
+  </div>
+  <div class="cart-item-buttons">
+    <button
+      data-product-id="<%= item.product.id%>"
+      data-csrf-token="<%= locals.csrfToken %>"
+      type="button"
+      class="btn btn-alt btn-remove"
+    >
+      Remove
+    </button>
+  </div>
 </article>

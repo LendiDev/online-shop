@@ -27,6 +27,9 @@ class Cart {
 
   updateCartItem = (productId, newQuantity) => {
     newQuantity = +newQuantity; // String -> Number
+
+    if (newQuantity > 99) newQuantity = 99;
+
     const existingItem = this.items.find(
       (item) => item.product.id === productId
     );
@@ -42,10 +45,12 @@ class Cart {
 
         return { updatedItemPrice: existingItem.totalPrice };
       } else {
-        console.log("remove existing item");
+        this.totalQuantity -= existingItem.quantity;
+        this.totalAmount -= existingItem.totalPrice;
+        this.items = this.items.filter((item) => item.product.id !== existingItem.product.id);
       }
     } else {
-      console.log("Error! item does not exist! Ignore request");
+      console.log("Error! Item doesn't exist.");
     }
   };
 }
