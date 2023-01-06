@@ -6,6 +6,7 @@ const cartItemQuantityElements = document.querySelectorAll(
 const cartItemRemoveButtonElements = document.querySelectorAll(
   ".cart-item-buttons button"
 );
+const mainSectionElement = document.querySelector("#cart-items-section");
 
 const loadingElement = `<span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="31px" height="31px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 <g transform="rotate(0 50 50)">
@@ -58,6 +59,15 @@ const loadingElement = `<span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlin
   </rect>
 </g></svg></span>`;
 
+function checkAndUpdateCartSection(totalQuantity) {
+  if (totalQuantity === 0) {
+    mainSectionElement.id = "cart-empty-section";
+    mainSectionElement.innerHTML = `<p>Your cart is empty.</p>
+    <a class="btn" href="/products">Shop Now</a>`;
+  }
+  return;
+}
+
 async function sendUpdateCartRequest(productId, newQuantity, csrfToken) {
   let response;
   try {
@@ -109,8 +119,14 @@ async function updateCartItem(event) {
   // show loading
   buttonElement.innerHTML = loadingElement;
 
-  const responseData = await sendUpdateCartRequest(productId, newQuantity, csrfToken);
+  const responseData = await sendUpdateCartRequest(
+    productId,
+    newQuantity,
+    csrfToken
+  );
 
+  checkAndUpdateCartSection(responseData.updatedCartData.newTotalQuantity);
+  
   // update global totals
   cartTotalAmountElement.textContent =
     responseData.updatedCartData.newTotalAmount;
@@ -135,6 +151,8 @@ async function removeCartItem(event) {
   const csrfToken = buttonElement.dataset.csrfToken;
 
   const responseData = await sendUpdateCartRequest(productId, 0, csrfToken);
+
+  checkAndUpdateCartSection(responseData.updatedCartData.newTotalQuantity);
 
   // update global totals
   cartTotalAmountElement.textContent =

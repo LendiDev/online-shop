@@ -6,17 +6,31 @@
   <%- include('includes/header') %>
   <main>
     <h1>Your Cart</h1>
-    <ul class="cart-items">
-      <% for (const cartItem of locals.cart.items) { %> 
-        <li>
-          <%- include('includes/cart-item', { item: cartItem }) %>
-        </li>
-      <% } %> 
-    </ul>
-    <div class="cart-total">
-      <p>Total: $<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
-      <button class="btn">Checkout</button>
-    </div>
+    <% if (locals.cart.totalQuantity > 0) { %> 
+      <section id="cart-items-section">
+        <ul class="cart-items">
+          <% for (const cartItem of locals.cart.items) { %> 
+            <li>
+              <%- include('includes/cart-item', { item: cartItem }) %>
+            </li>
+          <% } %> 
+        </ul>
+        <div class="cart-total">
+          <p>Total: $<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
+          <% if (locals.isAuth) { %>
+            <button class="btn">Checkout</button>
+          <% } else { %>
+            <p>You must be logged in to proceed to checkout.</p>
+            <p>Please <a href="/login">log in</a> or <a href="/signup">create an account</a>.</p> 
+          <% } %>
+        </div>
+      </section>
+    <% } else { %> 
+      <section id="cart-empty-section">
+        <p>Your cart is empty.</p>
+        <a class="btn" href="/products">Shop Now</a>
+      </section>
+    <% } %> 
   </main>
   <%- include('includes/footer') %>
 </body>
