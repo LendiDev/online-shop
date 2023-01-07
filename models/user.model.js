@@ -1,6 +1,7 @@
 // Handles login, signup
 const db = require("../database/database");
 const bcrypt = require("bcryptjs");
+const { ObjectId } = require("mongodb");
 
 class User {
   // TODO: handle address data
@@ -23,11 +24,20 @@ class User {
       email: this.email,
       password: hashedPassword,
       name: this.name,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(),
       address: this.address,
     });
 
     return result;
+  };
+
+  static findById = (userId) => {
+    const uid = new ObjectId(userId);
+
+    return db
+      .getDb()
+      .collection("users")
+      .findOne({ _id: uid }, { projection: { password: 0 } });
   };
 
   getUserWithSameEmail = () => {

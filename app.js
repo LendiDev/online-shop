@@ -21,6 +21,8 @@ const baseRoutes = require("./routes/base.routes");
 const productsRoutes = require("./routes/products.routes");
 const cartRoutes = require("./routes/cart.routes");
 const adminRoutes = require("./routes/admin.routes");
+const ordersRoutes = require("./routes/orders.routes");
+
 
 const app = express();
 
@@ -46,6 +48,7 @@ app.use(baseRoutes);
 app.use("/cart", cartRoutes);
 app.use(authRoutes);
 app.use(productsRoutes);
+app.use("/orders", ordersRoutes);
 app.use(routesProtectionMiddleware);
 app.use("/admin", adminRoutes);
 
