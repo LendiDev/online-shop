@@ -9,8 +9,11 @@
       <img src="<%= product.imageURL %>" alt="<%= product.title %>">
       <div id="product-info">
         <h2><%= product.title %></h2>
+        <p id="product-price">
+          £<%= product.price.toFixed(2) %>
+        </p>
         <p>
-          $<%= product.price.toFixed(2) %>
+          <%= product.summary %>
         </p>
         <form>
           <button class="btn" data-product-id="<%= product.id %>" data-csrf-token="<%= locals.csrfToken %>">Add to cart</button>

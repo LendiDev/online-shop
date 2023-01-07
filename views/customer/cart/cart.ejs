@@ -16,7 +16,7 @@
           <% } %> 
         </ul>
         <div class="cart-total">
-          <p>Total: $<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
+          <p>Total: £<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
           <% if (locals.isAuth) { %>
             <button class="btn">Checkout</button>
           <% } else { %>

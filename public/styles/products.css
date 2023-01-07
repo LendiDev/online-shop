@@ -79,6 +79,12 @@
   width: 100%;
 }
 
+#product-price {
+  margin-top: var(--space-1);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
 #product-description {
   white-space: pre-wrap;
 }
