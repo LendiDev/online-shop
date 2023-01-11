@@ -64,6 +64,7 @@
 }
 
 .cart-item-info input {
+  -moz-appearance: textfield;
   margin: 0 var(--space-1);
   text-align: center;
   font: inherit;
@@ -72,6 +73,13 @@
   width: 2.75rem;
   border-radius: var(--border-radius-medium);
   border: 0;
+}
+
+/* Remove arrows selection  */
+.cart-item-info input::-webkit-outer-spin-button,
+.cart-item-info input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .cart-item-info input:disabled {
