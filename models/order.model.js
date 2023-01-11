@@ -38,6 +38,7 @@ class Order {
     const orderDocuments = await db
       .getDb()
       .collection("orders")
+      .find()
       .sort({ _id: -1 })
       .toArray();
 

@@ -32,7 +32,7 @@ const getAllOrders = async (req, res, next) => {
     return next(error);
   }
 
-  res.render('customer/orders/all-orders', { orders });
+  res.render("customer/orders/all-orders", { orders });
 };
 
 const getOrderDetails = async (req, res, next) => {
@@ -44,14 +44,14 @@ const getOrderDetails = async (req, res, next) => {
   }
 
   if (order.customerData._id.toString() !== res.locals.uid) {
-    return res.status(401).render('errors/401');
+    return res.status(401).render("errors/401");
   }
 
-  res.render('customer/orders/order-details', { order });
+  res.render("customer/orders/order-details", { order });
 };
 
 module.exports = {
   addNewOrder,
   getAllOrders,
-  getOrderDetails
+  getOrderDetails,
 };

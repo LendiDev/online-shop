@@ -7,6 +7,6 @@
   </div>
   <div class="order-info-actions">
     <h2 class="badge"><%= order.status %></h2>
-    <a class="btn btn-alt" href="/orders/details/<%= order.id %>">View details</a>
+    <a class="btn btn-alt" href="<%= locals.isAdmin ? '/admin' : '' %>/orders/details/<%= order.id %>">View details</a>
   </div>
 </article>

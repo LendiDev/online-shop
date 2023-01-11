@@ -1,3 +1,11 @@
+.manage-order-item {
+  width: 33%;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0 var(--space-1);
+}
+
 .order-item {
   display: flex;
   justify-content: space-between;
@@ -62,6 +70,10 @@
 }
 
 @media (max-width: 48rem) {
+  .manage-order-item {
+    width: 100%;
+  }
+
   .order-item {
     flex-direction: column;
   }
@@ -75,6 +87,10 @@
   }
 
   .order-item p {
+    font-size: 3.5vw;
+  }
+
+  address {
     font-size: 3.5vw;
   }
 
