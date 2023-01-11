@@ -17,7 +17,10 @@ class Product {
   }
 
   static findAll = async () => {
-    const products = await db.getDb().collection("products").find().toArray();
+    const sortBy = { _id: -1 };
+
+    const products = await db.getDb().collection("products").find().sort(sortBy).toArray();
+  
     return products.map((product) => {
       return new Product(product);
     });
@@ -54,7 +57,7 @@ class Product {
   delete = () => {
     try {
       const productId = new ObjectId(this.id);
-      return db.getDb().collection('products').deleteOne({ _id: productId });
+      return db.getDb().collection("products").deleteOne({ _id: productId });
     } catch (error) {
       throw error;
     }
@@ -67,7 +70,7 @@ class Product {
       price: this.price,
       description: this.description,
       image: this.image,
-    }
+    };
 
     let result;
     if (this.id) {
@@ -78,7 +81,10 @@ class Product {
           delete productData.image;
         }
 
-        result = await db.getDb().collection("products").updateOne({ _id: productId}, { $set: productData });
+        result = await db
+          .getDb()
+          .collection("products")
+          .updateOne({ _id: productId }, { $set: productData });
       } catch (error) {
         error.code = 404;
         throw error;
@@ -93,7 +99,7 @@ class Product {
   replaceImage = async (newImage) => {
     this.image = newImage;
     this.updateImageData();
-  }
+  };
 }
 
 module.exports = Product;

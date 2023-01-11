@@ -43,6 +43,10 @@ const getOrderDetails = async (req, res, next) => {
     return next(error);
   }
 
+  if (order.customerData._id.toString() !== res.locals.uid) {
+    return res.status(401).render('errors/401');
+  }
+
   res.render('customer/orders/order-details', { order });
 };
 

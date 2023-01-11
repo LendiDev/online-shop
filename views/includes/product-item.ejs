@@ -1,8 +1,8 @@
 <article class="product-item">
   <img src="<%= product.imageURL %>" alt="Image of <%= product.title %>" />
   <h2><%= product.title %></h2>
-  <p>£<%= product.price.toFixed(2) %></p>
   <div class="product-actions">
+    <p>£<%= product.price.toFixed(2) %></p>
     <% if (locals.isAdmin) { %> 
       <a class="btn" href="/admin/products/edit/<%= product.id %>">View & Edit</a>
       <button class="btn btn-alt" data-product-id="<%= product.id %>" data-csrf-token="<%= locals.csrfToken %>">Delete</button>
