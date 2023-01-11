@@ -1,3 +1,7 @@
+address {
+  font-style: normal;
+}
+
 .manage-order-item {
   width: 33%;
   display: flex;
@@ -86,11 +90,7 @@
     font-size: 4vw;
   }
 
-  .order-item p {
-    font-size: 3.5vw;
-  }
-
-  address {
+  .order-item p, address {
     font-size: 3.5vw;
   }
 
