@@ -82,6 +82,17 @@ class Order {
       return db.getDb().collection("orders").insertOne(orderData);
     } else {
       // update order
+      const orderId = ObjectId(this.id);
+      const updateData = {
+        $set: {
+          status: this.status,
+        },
+      };
+
+      return db
+        .getDb()
+        .collection("orders")
+        .updateOne({ _id: orderId }, updateData);
     }
   }
 }

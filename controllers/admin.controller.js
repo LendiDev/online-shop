@@ -91,6 +91,25 @@ const getOrderDetails = async (req, res, next) => {
   res.render('customer/orders/order-details', { order });
 };
 
+const updateOrder = async (req, res, next) => {
+  const newStatus = req.body.status;
+
+  const order = new Order(null, null, newStatus, null, req.body.orderId);
+
+  try {
+    order.save();
+  } catch (error) {
+    return next(error);
+  }
+
+  return res.json({
+    message: 'Order updated',
+    orderData: {
+      newStatus,
+    }
+  });
+}
+
 module.exports = {
   getAllProducts,
   getNewProduct,
@@ -99,5 +118,6 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getAllOrders,
-  getOrderDetails
+  getOrderDetails,
+  updateOrder
 };

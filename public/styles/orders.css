@@ -60,6 +60,8 @@ address {
 
 .order-info-actions .badge {
   background-color: var(--color-primary-700);
+  font-size: 1.2rem;
+  text-transform: capitalize;
 }
 
 .order-products-list {
@@ -90,7 +92,8 @@ address {
     font-size: 4vw;
   }
 
-  .order-item p, address {
+  .order-item p,
+  address {
     font-size: 3.5vw;
   }
 
@@ -103,5 +106,9 @@ address {
   .order-info-actions a {
     font-size: 3.5vw;
     width: 100%;
+  }
+
+  .order-info-actions .badge {
+    font-size: 4vw;
   }
 }

@@ -1,6 +1,9 @@
 <%- include('includes/head', { pageTitle: locals.isAdmin ? 'Order' : 'Your Order' }) %>
   <link rel="stylesheet" href="/styles/orders.css">
   <link rel="stylesheet" href="/styles/forms.css">
+  <% if (locals.isAdmin) { %> 
+    <script src="/scripts/orders-management.js" defer></script>
+  <% } %> 
 </head>
 <body>
   <%- include('includes/header') %>
@@ -14,7 +17,9 @@
     <% if (locals.isAdmin) { %> 
       <section>
         <h2>Manage order</h2>
-          <form class="manage-order-item">
+          <form class="manage-order-item" id="order-update-form">
+            <input type="hidden" name="csrf-token" value="<%= locals.csrfToken %>">
+            <input type="hidden" name="order-id" value="<%= order.id %>">
             <select name="status">
               <option value="fulfilled" <%= order.status === 'fulfilled' && 'selected' %>>Fulfilled</option>
               <option value="pending" <%= order.status === 'pending' && 'selected' %>>Pending</option>
@@ -53,7 +58,7 @@
     <section>
       <article class="order-item">
         <div class="order-info">
-          <h2>Shipping details: </h2>
+          <h2>Shipping details</h2>
           <p><%= order.customerData.name %></p>
           <p><%= order.customerData.address.street %></p>
           <p><%= order.customerData.address.city %></p>
@@ -62,7 +67,7 @@
         </div>
       </article>
     </section>
-    <button class="btn btn-alt" onclick="history.go(-1)">Go back</button>
+    <button class="btn btn-alt" onclick="goBack()">Go back</button>
   </main>
   <%- include('includes/footer') %>
 </body>

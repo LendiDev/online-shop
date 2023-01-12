@@ -19,5 +19,6 @@ routes.delete('/products/:id', AdminController.deleteProduct);
 // Orders
 routes.get('/orders', AdminController.getAllOrders);
 routes.get('/orders/details/:orderId', AdminController.getOrderDetails);
+routes.put('/orders/update', AdminController.updateOrder);
 
 module.exports = routes;
