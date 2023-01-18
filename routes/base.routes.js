@@ -1,9 +1,17 @@
 const express = require("express");
+const Product = require('../models/product.model');
 
 const routes = express.Router();
 
-routes.get("/", (req, res) => {
-  res.render("home");
+routes.get("/", async (req, res) => {
+  let products;
+  try {
+    products = await Product.getProducts(3);
+  } catch (error) {
+    return next(error);
+  }
+  
+  res.render("home", { products });
 });
 
 routes.get("/401", (req, res) => {

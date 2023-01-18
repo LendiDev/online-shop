@@ -20,7 +20,7 @@
           <form class="manage-order-item" id="order-update-form">
             <input type="hidden" name="csrf-token" value="<%= locals.csrfToken %>">
             <input type="hidden" name="order-id" value="<%= order.id %>">
-            <select name="status">
+            <select name="status" id="status">
               <option value="fulfilled" <%= order.status === 'fulfilled' && 'selected' %>>Fulfilled</option>
               <option value="pending" <%= order.status === 'pending' && 'selected' %>>Pending</option>
               <option value="cancelled" <%= order.status === 'cancelled' && 'selected' %>>Cancelled</option>

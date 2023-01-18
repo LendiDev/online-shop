@@ -1,5 +1,6 @@
 const mongodb = require("mongodb");
 const db = require("../database/database");
+const { getSortBy, getOrderBy } = require("../utils/db-switches");
 
 const ObjectId = mongodb.ObjectId;
 
@@ -19,8 +20,31 @@ class Product {
   static findAll = async () => {
     const sortBy = { _id: -1 };
 
-    const products = await db.getDb().collection("products").find().sort(sortBy).toArray();
-  
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find()
+      .sort(sortBy)
+      .toArray();
+
+    return products.map((product) => {
+      return new Product(product);
+    });
+  };
+
+  static getProducts = async (num = 3, sortBy = "id", orderBy = "ASC") => {
+    const sortByQuery = {};
+    const sortByName = getSortBy(sortBy);
+    sortByQuery[sortByName] = getOrderBy(orderBy);
+
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find()
+      .limit(num)
+      .sort(sortByQuery)
+      .toArray();
+
     return products.map((product) => {
       return new Product(product);
     });
