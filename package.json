@@ -4,8 +4,9 @@
   "description": "Basic Online Shop based on NodeJS and MongoDB",
   "main": "app.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --verbose --forceExit",
-    "start": "nodemon -e js,ejs,html,css app.js"
+    "test": "jest --verbose --forceExit",
+    "start": "nodemon -e js,ejs,html,css app.js",
+    "seed": "node database/seed/index.js"
   },
   "repository": {
     "type": "git",
