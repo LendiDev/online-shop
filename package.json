@@ -2,7 +2,7 @@
   "name": "online-shop",
   "version": "0.0.1",
   "description": "Basic Online Shop based on NodeJS and MongoDB",
-  "main": "app.js",
+  "main": "listen.js",
   "scripts": {
     "test": "jest --verbose --forceExit",
     "start-dev": "NODE_ENV=development nodemon -e js,ejs,html,css listen.js",
