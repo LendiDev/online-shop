@@ -8,10 +8,10 @@ routes.get("/", async (req, res, next) => {
   try {
     products = await Product.getProducts(3);
   } catch (error) {
-    next(error);
+    return next(error);
   }
   
-  res.render("home", { products });
+  res.status(200).send('all good');
 });
 
 routes.get("/401", (req, res) => {
