@@ -8,7 +8,7 @@
     "start-dev": "NODE_ENV=development nodemon -e js,ejs,html,css listen.js",
     "seed": "node database/seed/index.js",
     "seed_prod": "NODE_ENV=production node database/seed/index.js",
-    "start": "node listen.js"
+    "start": "node listen.js --unhandled-rejections"
   },
   "repository": {
     "type": "git",
