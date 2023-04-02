@@ -1,5 +1,17 @@
 const Order = require("../models/order.model");
 const User = require("../models/user.model");
+const stripeAPI = require("../utils/stripe-api");
+
+const getAllOrders = async (req, res, next) => {
+  let orders;
+  try {
+    orders = await Order.findAllUserOrders(res.locals.uid);
+  } catch (error) {
+    return next(error);
+  }
+
+  res.render("customer/orders/all-orders", { orders });
+};
 
 const addNewOrder = async (req, res, next) => {
   const cart = res.locals.cart;
@@ -20,19 +32,22 @@ const addNewOrder = async (req, res, next) => {
     return next(error);
   }
 
-  req.session.cart = null;
-  res.redirect("/orders");
-};
+  const stripeSession = await stripeAPI.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: cart.items.map((item) => ({
+      price_data: {
+        currency: "gbp",
+        product_data: { name: item.product.title, images: [`${process.env.HOST_DOMAIN}${item.product.imageURL}`] },
+        unit_amount: +item.product.price.toFixed(2) * 100,
+      },
+      quantity: item.quantity,
+    })),
+    mode: "payment",
+    success_url: `${process.env.HOST_DOMAIN}/orders/success`,
+    cancel_url: `${process.env.HOST_DOMAIN}/orders/failure`,
+  });
 
-const getAllOrders = async (req, res, next) => {
-  let orders;
-  try {
-    orders = await Order.findAllUserOrders(res.locals.uid);
-  } catch (error) {
-    return next(error);
-  }
-
-  res.render("customer/orders/all-orders", { orders });
+  res.redirect(303, stripeSession.url)
 };
 
 const getOrderDetails = async (req, res, next) => {
@@ -50,8 +65,19 @@ const getOrderDetails = async (req, res, next) => {
   res.render("customer/orders/order-details", { order });
 };
 
+const getOrderSuccess = async (req, res, next) => {
+  req.session.cart = null;
+  res.render("customer/orders/success");
+};
+
+const getOrderFailure = async (req, res, next) => {
+  res.render("customer/orders/failure");
+};
+
 module.exports = {
   addNewOrder,
   getAllOrders,
   getOrderDetails,
+  getOrderSuccess,
+  getOrderFailure,
 };
