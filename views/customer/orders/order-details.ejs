@@ -1,0 +1,73 @@
+<%- include('includes/head', { pageTitle: locals.isAdmin ? 'Order' : 'Your Order' }) %>
+  <link rel="stylesheet" href="/styles/orders.css">
+  <link rel="stylesheet" href="/styles/forms.css">
+  <% if (locals.isAdmin) { %> 
+    <script src="/scripts/orders-management.js" defer></script>
+  <% } %> 
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <% if (!locals.isAdmin) { %> 
+      <h1>Your Order</h1>
+    <% } else { %> 
+      <h1>Order</h1>
+    <% } %> 
+
+    <% if (locals.isAdmin) { %> 
+      <section>
+        <h2>Manage order</h2>
+          <form class="manage-order-item" id="order-update-form">
+            <input type="hidden" name="csrf-token" value="<%= locals.csrfToken %>">
+            <input type="hidden" name="order-id" value="<%= order.id %>">
+            <select name="status" id="status">
+              <option value="fulfilled" <%= order.status === 'fulfilled' && 'selected' %>>Fulfilled</option>
+              <option value="pending" <%= order.status === 'pending' && 'selected' %>>Pending</option>
+              <option value="cancelled" <%= order.status === 'cancelled' && 'selected' %>>Cancelled</option>
+            </select>
+            <button class="btn btn-alt">Update</button>
+          </form>
+      </section>
+      <section>
+        <article class="order-item">
+          <div class="order-info">
+            <h2>Contact details: </h2>
+            <p><address>Email: <a href="mailto:<%= order.customerData.email %>"><%= order.customerData.email %></a></address></p>
+          </div>
+        </article>
+      </section>
+    <% } %> 
+    <section>
+      <article class="order-item">
+        <div class="order-info">
+          <h2>Order #<%= order.id %></h2>
+          <p class="order-date">Created on <time datetime="<%= order.date %>"><%= order.formattedDate %></time></p>
+          <h3>Order details: </h3>
+          <ol class="order-products-list">
+            <% for (const orderItem of order.orderData.items) { %>
+              <li><p><a href="/products/<%= orderItem.product.id %>"><%= orderItem.product.title %></a> - £<%= orderItem.totalPrice.toFixed(2) %> (£<%= orderItem.product.price.toFixed(2) %> x <%= orderItem.quantity %>)</p></li>
+            <% } %>
+          </ol>
+          <p><strong>Total: £<%= order.orderData.totalAmount.toFixed(2) %> (<%=order.orderData.totalQuantity%> items)</strong></p>
+        </div>
+        <div class="order-info-actions">
+          <h2 class="badge"><%= order.status %></h2>
+        </div>
+      </article>
+    </section>
+    <section>
+      <article class="order-item">
+        <div class="order-info">
+          <h2>Shipping details</h2>
+          <p><%= order.customerData.name %></p>
+          <p><%= order.customerData.address.street %></p>
+          <p><%= order.customerData.address.city %></p>
+          <p><%= order.customerData.address.postcode %></p>
+          <p><%= order.customerData.address.country.toUpperCase() %></p>
+        </div>
+      </article>
+    </section>
+    <button class="btn btn-alt" onclick="goBack()">Go back</button>
+  </main>
+  <%- include('includes/footer') %>
+</body>

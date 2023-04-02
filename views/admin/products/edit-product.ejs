@@ -1,0 +1,14 @@
+<%- include('includes/head', { pageTitle: 'Edit Product' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+  <script src="/scripts/image-preview.js" defer></script>
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <section>
+      <h1>Edit Product</h1>
+      <%- include('includes/product-form', { submitPath: '/admin/products/edit/' + product.id, imageRequired: false }) %>
+    </section>
+  </main>
+  <%- include('includes/footer') %>
+</body>

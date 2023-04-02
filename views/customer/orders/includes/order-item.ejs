@@ -1,0 +1,12 @@
+<article class="order-item">
+  <div class="order-info">
+    <h2><a href="<%= locals.isAdmin ? '/admin' : '' %>/orders/details/<%= order.id %>">Order #<%= order.id %></a></h2>
+    <p class="order-date">Created on <%= order.formattedDate %></p>
+    <p>Total items: <%= order.orderData.totalQuantity %></p>
+    <p>Total paid: £<%= order.orderData.totalAmount.toFixed(2) %></p>
+  </div>
+  <div class="order-info-actions">
+    <h2 class="badge"><%= order.status %></h2>
+    <a class="btn btn-alt" href="<%= locals.isAdmin ? '/admin' : '' %>/orders/details/<%= order.id %>">View details</a>
+  </div>
+</article>

@@ -1,0 +1,33 @@
+input,
+select,
+textarea {
+  font: inherit;
+  padding: var(--space-2);
+  border-radius: var(--border-radius-medium);
+  border: none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+form hr {
+  border-color: var(--color-primary-200);
+  margin: var(--space-6) 0;
+}
+
+label {
+  color: var(--color-gray-50);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+#image-preview-container {
+  display: none;
+}
+
+#image-preview-container img {
+  width: 20rem;
+  height: 15rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--border-radius-large);
+}

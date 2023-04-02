@@ -1,0 +1,38 @@
+<%- include('includes/head', { pageTitle: 'Sign up' }) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>Login</h1>
+    <% if (inputData.errorMessage) { %> 
+      <section class="error">
+        <h2>Invalid Input</h2>
+        <p><%= inputData.errorMessage %></p>
+      </section>
+    <% } %>
+    <form action="/login" method="POST">
+      <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
+      <p>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="<%= inputData.email %>" required  />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value="<%= inputData.password %>"
+          required
+          minlength="8"
+        />
+      </p>
+
+      <button class="btn">Login</button>
+      <p id="switch-form"><a href="/signup">Create a new account</a></p>
+    </form>
+  </main>
+  <%- include('includes/footer') %>
+</body>

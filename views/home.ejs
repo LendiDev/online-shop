@@ -1,0 +1,25 @@
+<%- include('includes/head', { pageTitle: 'All products' }) %>
+<link rel="stylesheet" href="/styles/products.css">
+<link rel="stylesheet" href="/styles/home.css">
+</head>
+<body>
+  <%- include('includes/header') %>
+  <main>
+    <h1>True Essentials Shop</h1>
+    <section>
+      <p>Welcome to our online shop! We offer a wide range of essential products to help you and your loved ones live life to the fullest. Our selection includes everything from food and household items to health and beauty products, all at affordable prices.</p>
+      <p>We know that life can be unpredictable, which is why we strive to make shopping as convenient as possible. With just a few clicks, you can have all of your essentials delivered straight to your doorstep.</p>
+    </section>
+    <section id="new-arrival">
+      <h2>New arrival</h1>
+        <ul class="products-grid">
+          <% for (const product of products) { %> 
+            <li>
+              <%- include('includes/product-item', { product }) %>
+            </li>
+          <% } %> 
+        </ul>
+    </section>
+  </main>
+  <%- include('includes/footer') %>
+</body>
