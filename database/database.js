@@ -8,6 +8,7 @@ let database;
 const connectToDatabase = async () => {
   const client = await new MongoClient(process.env.MONGODB_URI);
   database = client.db(process.env.MONGODB_DB_NAME);
+  return client;
 };
 
 const getDb = () => {
