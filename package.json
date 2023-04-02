@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --verbose --forceExit",
     "start-dev": "NODE_ENV=development nodemon -e js,ejs,html,css listen.js",
-    "seed": "node database/seed/index.js",
+    "seed": "NODE_ENV=development node database/seed/index.js",
     "seed_prod": "NODE_ENV=production node database/seed/index.js",
     "start": "node listen.js --unhandled-rejections"
   },
