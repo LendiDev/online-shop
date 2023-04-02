@@ -1,7 +1,6 @@
 const path = require("path");
 
 const express = require("express");
-
 const session = require("express-session");
 const csrf = require("csurf");
 
@@ -16,7 +15,6 @@ const cartMiddleware = require("./middlewares/cart.middleware");
 const updateCartPricesMiddleware = require("./middlewares/update-cart-prices.middleware");
 
 const sessionsConfig = require("./config/sessions");
-const db = require("./database/database");
 const authRoutes = require("./routes/auth.routes");
 const baseRoutes = require("./routes/base.routes");
 const productsRoutes = require("./routes/products.routes");
@@ -55,16 +53,5 @@ app.use("/admin", routesProtectionMiddleware, adminRoutes);
 
 app.use(handleNotFound);
 app.use(handleErrors);
-
-db.connectToDatabase()
-  .then(() => {
-    if (process.env.NODE_ENV !== "test") {
-      app.listen(process.env.PORT || 3000);
-    }
-  })
-  .catch((error) => {
-    console.log("Failed to connect to database");
-    console.log(error);
-  });
 
 module.exports = app;
