@@ -4,14 +4,14 @@ const Product = require('../models/product.model');
 const routes = express.Router();
 
 routes.get("/", async (req, res, next) => {
-  // let products;
-  // try {
-  //   products = await Product.getProducts(3);
-  // } catch (error) {
-  //   return next(error);
-  // }
+  let products;
+  try {
+    products = await Product.getProducts(3);
+  } catch (error) {
+    return next(error);
+  }
   
-  res.status(200).send('all good');
+  res.render("home", { products });
 });
 
 routes.get("/401", (req, res) => {
