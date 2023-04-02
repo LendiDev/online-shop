@@ -1,5 +1,5 @@
 const cartTotalAmountElement = document.querySelector(".cart-total-price");
-const cartBadgeElement = document.querySelector(".nav-items .badge");
+const cartBadgeElements = document.querySelector(".nav-items .badge");
 const cartItemQuantityElements = document.querySelectorAll(
   ".cart-item-quantity-action"
 );
@@ -126,11 +126,15 @@ async function updateCartItem(event) {
   );
 
   checkAndUpdateCartSection(responseData.updatedCartData.newTotalQuantity);
-  
+
   // update global totals
   cartTotalAmountElement.textContent =
     responseData.updatedCartData.newTotalAmount;
-  cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
+
+  cartBadgeElements.forEach((cartBadgeElement) => {
+    cartBadgeElement.textContent =
+      responseData.updatedCartData.newTotalQuantity;
+  });
 
   if (responseData.updatedCartData.newItemPrice === "remove") {
     // remove cart item
@@ -157,7 +161,11 @@ async function removeCartItem(event) {
   // update global totals
   cartTotalAmountElement.textContent =
     responseData.updatedCartData.newTotalAmount;
-  cartBadgeElement.textContent = responseData.updatedCartData.newTotalQuantity;
+    
+  cartBadgeElements.forEach((cartBadgeElement) => {
+    cartBadgeElement.textContent =
+      responseData.updatedCartData.newTotalQuantity;
+  });
 
   if (responseData.updatedCartData.newItemPrice === "remove") {
     // remove cart item

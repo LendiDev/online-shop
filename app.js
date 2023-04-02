@@ -48,15 +48,14 @@ app.use(addCsrfTokenMiddleware);
 app.use(authCheckStatusMiddleware);
 
 app.use(baseRoutes);
-app.use("/cart", cartRoutes);
 app.use(authRoutes);
 app.use(productsRoutes);
-app.use("/orders", ordersRoutes);
-app.use(routesProtectionMiddleware);
-app.use("/admin", adminRoutes);
+app.use("/cart", cartRoutes);
+app.use("/orders", routesProtectionMiddleware, ordersRoutes);
+app.use("/admin", routesProtectionMiddleware, adminRoutes);
 
-app.use(handleErrors);
 app.use(handleNotFound);
+app.use(handleErrors);
 
 db.connectToDatabase()
   .then(() => {
