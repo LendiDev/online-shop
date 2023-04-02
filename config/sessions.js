@@ -8,6 +8,8 @@ const createSessionStore = () => {
     uri: process.env.MONGODB_URI,
     databaseName: process.env.MONGODB_DB_NAME,
     collection: 'sessions',
+  }, (error) => {
+    console.log('MongoDBStore (Sessions) Error', error);
   });
 }
 
