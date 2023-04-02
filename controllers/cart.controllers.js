@@ -27,7 +27,7 @@ const updateCartItem = (req, res, next) => {
   const cart = res.locals.cart;
   const updatedItemData = cart.updateCartItem(
     req.body.productId,
-    req.body.quantity
+    +req.body.quantity
   );
 
   req.session.cart = cart;

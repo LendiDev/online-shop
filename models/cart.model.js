@@ -1,3 +1,5 @@
+const Product = require("./product.model");
+
 class Cart {
   constructor(items = [], totalQuantity = 0, totalAmount = 0) {
     this.items = items;
@@ -25,6 +27,45 @@ class Cart {
     this.totalAmount += product.price;
   };
 
+  async updatePrices() {
+    const productIds = this.items.map((item) => item.product.id);
+    const products = await Product.findMultiple(productIds);
+
+    const deletableCartItemProductIds = [];
+
+    for (const cartItem of this.items) {
+      const product = products.find(
+        (product) => product.id === cartItem.product.id
+      );
+
+      if (!product) {
+        // product was deleted
+        deletableCartItemProductIds.push(cartItem.product.id);
+        continue;
+      }
+
+      // product was not deleted
+      // recalculate total price of product in case price changed
+      cartItem.product = product;
+      cartItem.totalPrice = cartItem.quantity * cartItem.product.price;
+    }
+
+    if (deletableCartItemProductIds.length > 0) {
+      this.items = this.items.filter(
+        (item) => productIds.indexOf(item.product.id) < 0
+      );
+    }
+
+    // recalculate cart total
+    this.totalQuantity = 0;
+    this.totalPrice = 0;
+
+    for (const item of this.items) {
+      this.totalQuantity = this.totalQuantity + item.quantity;
+      this.totalPrice = this.totalPrice + item.totalPrice;
+    }
+  }
+
   updateCartItem = (productId, newQuantity) => {
     newQuantity = +newQuantity; // String -> Number
 
@@ -47,7 +88,9 @@ class Cart {
       } else {
         this.totalQuantity -= existingItem.quantity;
         this.totalAmount -= existingItem.totalPrice;
-        this.items = this.items.filter((item) => item.product.id !== existingItem.product.id);
+        this.items = this.items.filter(
+          (item) => item.product.id !== existingItem.product.id
+        );
       }
     } else {
       console.log("Error! Item doesn't exist.");

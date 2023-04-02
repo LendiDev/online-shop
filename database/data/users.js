@@ -1,7 +1,7 @@
 const users = [
   {
-    email: "admin@main.com",
-    password: "123456",
+    email: "admin@mail.com",
+    password: "12345678",
     name: "Ruth Smith",
     createdAt: {
       $date: {
@@ -18,7 +18,7 @@ const users = [
   },
   {
     email: "user@mail.com",
-    password: "123456",
+    password: "12345678",
     name: "Peter Crafter",
     createdAt: {
       $date: {
@@ -34,7 +34,7 @@ const users = [
   },
   {
     email: "user2@mail.com",
-    password: "123456",
+    password: "12345678",
     name: "Hazel Nut",
     createdAt: {
       $date: {

@@ -27,9 +27,19 @@ class Product {
       .sort(sortBy)
       .toArray();
 
-    return products.map((product) => {
-      return new Product(product);
-    });
+    return products.map((product) => new Product(product));
+  };
+
+  static findMultiple = async (ids) => {
+    const productIds = ids.map((id) => new mongodb.ObjectId(id));
+
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find({ _id: { $in: productIds } })
+      .toArray();
+
+    return products.map((productDoc) => new Product(productDoc));
   };
 
   static getProducts = async (num = 3, sortBy = "id", orderBy = "ASC") => {

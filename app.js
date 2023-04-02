@@ -14,6 +14,8 @@ const {
 const authCheckStatusMiddleware = require("./middlewares/check-auth.middleware");
 const routesProtectionMiddleware = require("./middlewares/routes-protection.middleware");
 const cartMiddleware = require("./middlewares/cart.middleware");
+const updateCartPricesMiddleware = require("./middlewares/update-cart-prices.middleware");
+
 const sessionsConfig = require("./config/sessions");
 const db = require("./database/database");
 const authRoutes = require("./routes/auth.routes");
@@ -22,7 +24,6 @@ const productsRoutes = require("./routes/products.routes");
 const cartRoutes = require("./routes/cart.routes");
 const adminRoutes = require("./routes/admin.routes");
 const ordersRoutes = require("./routes/orders.routes");
-
 
 const app = express();
 
@@ -41,6 +42,8 @@ app.use(session(sessionsConfig()));
 app.use(csrf());
 
 app.use(cartMiddleware);
+app.use(updateCartPricesMiddleware);
+
 app.use(addCsrfTokenMiddleware);
 app.use(authCheckStatusMiddleware);
 
@@ -57,7 +60,7 @@ app.use(handleNotFound);
 
 db.connectToDatabase()
   .then(() => {
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV !== "test") {
       app.listen(process.env.PORT || 3000);
     }
   })
