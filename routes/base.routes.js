@@ -8,7 +8,7 @@ routes.get("/", async (req, res, next) => {
   try {
     products = await Product.getProducts(3);
   } catch (error) {
-    return next(error);
+    next(error);
   }
   
   res.render("home", { products });
