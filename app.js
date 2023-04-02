@@ -31,7 +31,7 @@ app.set("views", [
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
-app.use("/products/assets/images", express.static("uploads/product-images"));
+app.use("/products/assets/images", express.static("tmp/product-images"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

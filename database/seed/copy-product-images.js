@@ -2,7 +2,7 @@ const fs = require('fs/promises');
 const path = require("path");
 
 const sourceFolder = "./database/data/product-images";
-const destinationFolder = "./uploads/product-images";
+const destinationFolder = "./tmp/product-images";
 
 const copyImagesToUploads = async () => {
   try {
