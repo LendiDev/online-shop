@@ -6,7 +6,8 @@ const PORT = process.env.PORT || 3000;
 db.connectToDatabase()
   .then(() => {
     if (process.env.NODE_ENV !== "test") {
-      app.listen(PORT, () => {
+      app.listen(PORT, (error) => {
+        if (error) throw error;
         console.log(`Server listening on port: ${PORT}`);
       });
     }

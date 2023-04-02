@@ -24,11 +24,11 @@ const ordersRoutes = require("./routes/orders.routes");
 
 const app = express();
 
-app.set("view engine", "ejs");
 app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/includes/"),
 ]);
+app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use("/products/assets/images", express.static("uploads/product-images"));
