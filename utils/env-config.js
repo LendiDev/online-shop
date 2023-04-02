@@ -11,10 +11,6 @@ const configureEnvironment = () => {
 };
 
 const envCheck = () => {
-  if (!process.env.MONGODB_URI) {
-    throw Error("process.env.MONGODB_URI is not set");
-  }
-
   if (!process.env.MONGODB_DB_NAME) {
     throw Error("process.env.MONGODB_DB_NAME is not set");
   }
@@ -23,10 +19,17 @@ const envCheck = () => {
     throw Error("process.env.STRIPE_SECRET_KEY is not set");
   }
 
+  if (!process.env.MONGODB_URI) {
+    throw Error("process.env.MONGODB_URI is not set");
+  }
+
   if (!process.env.HOST_DOMAIN) {
     throw Error("process.env.HOST_DOMAIN is not set");
   }
 
+  if (!process.env.AWS_BUCKET_NAME) {
+    throw Error("process.env.AWS_BUCKET_NAME is not set");
+  }
 };
 
 module.exports = configureEnvironment;

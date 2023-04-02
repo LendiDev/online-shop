@@ -28,7 +28,7 @@ const getEditProduct = async (req, res, next) => {
 const createNewProduct = async (req, res, next) => {
   const newProduct = new Product({
     ...req.body,
-    image: req.file.filename,
+    image: req.file.key,
   });
 
   try {
@@ -43,9 +43,10 @@ const createNewProduct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
   const product = new Product({ ...req.body, _id: req.params.id });
+  const imageKey = req.file.key;
 
   if (req.file) {
-    product.replaceImage(req.file.filename);
+    product.replaceImage(imageKey);
   }
 
   try {

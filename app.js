@@ -21,6 +21,7 @@ const productsRoutes = require("./routes/products.routes");
 const cartRoutes = require("./routes/cart.routes");
 const adminRoutes = require("./routes/admin.routes");
 const ordersRoutes = require("./routes/orders.routes");
+const getImage = require("./controllers/uploads.controller");
 
 const app = express();
 
@@ -31,7 +32,6 @@ app.set("views", [
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
-app.use("/products/assets/images", express.static("tmp/product-images"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -43,6 +43,8 @@ app.use(updateCartPricesMiddleware);
 
 app.use(addCsrfTokenMiddleware);
 app.use(authCheckStatusMiddleware);
+
+app.use("/products/images/:image_key", getImage);
 
 app.use(baseRoutes);
 app.use(authRoutes);

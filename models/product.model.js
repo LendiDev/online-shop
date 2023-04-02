@@ -84,8 +84,7 @@ class Product {
   };
 
   updateImageData = () => {
-    this.imagePath = `tmp/product-images/${this.image}`;
-    this.imageURL = `/products/assets/images/${this.image}`;
+    this.imageURL = `/products/images/${this.image}`;
   };
 
   delete = () => {
