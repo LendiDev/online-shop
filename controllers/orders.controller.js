@@ -37,7 +37,10 @@ const addNewOrder = async (req, res, next) => {
     line_items: cart.items.map((item) => ({
       price_data: {
         currency: "gbp",
-        product_data: { name: item.product.title, images: [`${process.env.HOST_DOMAIN}${item.product.imageURL}`] },
+        product_data: {
+          name: item.product.title,
+          images: [`${process.env.HOST_DOMAIN}${item.product.imageURL}`],
+        },
         unit_amount: +item.product.price.toFixed(2) * 100,
       },
       quantity: item.quantity,
@@ -47,7 +50,7 @@ const addNewOrder = async (req, res, next) => {
     cancel_url: `${process.env.HOST_DOMAIN}/orders/failure`,
   });
 
-  res.redirect(303, stripeSession.url)
+  res.redirect(303, stripeSession.url);
 };
 
 const getOrderDetails = async (req, res, next) => {
@@ -67,11 +70,11 @@ const getOrderDetails = async (req, res, next) => {
 
 const getOrderSuccess = async (req, res, next) => {
   req.session.cart = null;
-  res.render("customer/orders/success");
+  res.status(200).render("customer/orders/success");
 };
 
 const getOrderFailure = async (req, res, next) => {
-  res.render("customer/orders/failure");
+  res.status(200).render("customer/orders/failure");
 };
 
 module.exports = {
