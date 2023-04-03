@@ -3,7 +3,7 @@ const Product = require('../models/product.model');
 
 const routes = express.Router();
 
-routes.get("/", async (req, res) => {
+routes.get("/", async (req, res, next) => {
   let products;
   try {
     products = await Product.getProducts(3);
