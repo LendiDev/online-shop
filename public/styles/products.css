@@ -16,10 +16,11 @@
 }
 
 .product-item img {
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   width: 100%;
   height: 12.5rem;
+  background-color: white;
 }
 
 .product-item h2 {
@@ -64,11 +65,12 @@
 }
 
 #product-details img {
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--border-radius-large);
   width: 45%;
   min-width: 45%;
   height: 20rem;
+  background-color: white;
 }
 
 #product-details section {
