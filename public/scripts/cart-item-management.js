@@ -1,5 +1,5 @@
 const cartTotalAmountElement = document.querySelector(".cart-total-price");
-const cartBadgeElements = document.querySelector(".nav-items .badge");
+const cartBadgeElements = document.querySelectorAll(".nav-items .badge");
 const cartItemQuantityElements = document.querySelectorAll(
   ".cart-item-quantity-action"
 );
