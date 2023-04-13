@@ -2,14 +2,12 @@ const db = require("../database");
 const users = require("../data/users");
 const { formattedUsers } = require("./format-data");
 const products = require("../data/products");
-const copyImagesToUploads = require("./copy-product-images");
 
 const seedDB = async () => {
   await db.connectToDatabase();
   await deleteCollections();
   const products = await seedUsers();
   const users = await seedProducts();
-  await copyImagesToUploads();
 };
 
 const deleteCollections = async () => {
