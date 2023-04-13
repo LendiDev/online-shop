@@ -8,6 +8,7 @@ const addCsrfTokenMiddleware = require("./middlewares/csrf-token.middleware");
 const {
   handleErrors,
   handleNotFound,
+  handleInternalErrors,
 } = require("./middlewares/error-handler.middleware");
 const authCheckStatusMiddleware = require("./middlewares/check-auth.middleware");
 const routesProtectionMiddleware = require("./middlewares/routes-protection.middleware");
@@ -55,5 +56,6 @@ app.use("/admin", routesProtectionMiddleware, adminRoutes);
 
 app.use(handleNotFound);
 app.use(handleErrors);
+app.use(handleInternalErrors);
 
 module.exports = app;
