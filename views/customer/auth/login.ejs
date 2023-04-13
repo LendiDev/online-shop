@@ -1,6 +1,7 @@
 <%- include('includes/head', { pageTitle: 'Sign up' }) %>
   <link rel="stylesheet" href="/styles/forms.css">
   <link rel="stylesheet" href="/styles/auth.css">
+  <script src="/scripts/login.js" defer></script>
 </head>
 <body>
   <%- include('includes/header') %>
@@ -14,6 +15,16 @@
     <% } %>
     <form action="/login" method="POST">
       <input type="hidden" value="<%= locals.csrfToken %>" name="_csrf">
+      <p>
+        <label for="login_as">Demo credentials</label>
+        <select name="user" id="login_as">
+          <option value="">Select one to auto-fill...</option>
+          <option value="admin">Admin</option>
+          <option value="user1">User 1</option>
+          <option value="user2">User 2</option>
+        </select>
+      </p>
+      <hr/>
       <p>
         <label for="email">Email</label>
         <input type="email" name="email" id="email" value="<%= inputData.email %>" required  />
@@ -32,6 +43,7 @@
 
       <button class="btn">Login</button>
       <p id="switch-form"><a href="/signup">Create a new account</a></p>
+      
     </form>
   </main>
   <%- include('includes/footer') %>
