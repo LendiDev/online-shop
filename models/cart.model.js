@@ -27,6 +27,12 @@ class Cart {
     this.totalAmount += product.price;
   };
 
+  emptyCart() {
+    this.items = [];
+    this.totalQuantity = 0;
+    this.totalAmount = 0;
+  };
+
   async updatePrices() {
     const productIds = this.items.map((item) => item.product.id);
     const products = await Product.findMultiple(productIds);

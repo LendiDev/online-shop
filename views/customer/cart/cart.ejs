@@ -16,7 +16,21 @@
           <% } %> 
         </ul>
         <div class="cart-total">
-          <p>Total: £<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
+          <% if (locals.isAuth) { %>
+            <article class="demo-card-info"><h2>ℹ️ Test Payment Credentials</h2>
+              <p>To simulate a successful payment, use test card number provided below.
+              </p> 
+              <p>CVC - any 3 digits, Date - any future date. The rest of details can be anything you can only imagine.</p>
+              <input type="text" value="4242 4242 4242 4242" id="card-number" aria-label="test card number">
+                <div class="tooltip">
+                  <button class="btn btn-copy">
+                    <span class="tooltiptext" id="copy-tooltip">Copy to clipboard</span>
+                    Copy
+                  </button>
+              </div>
+            </article>
+          <% } %>
+          <p class="total">Total: £<span class="cart-total-price"><%= locals.cart.totalAmount.toFixed(2).replace('-0', '0') %></span></p>
           <% if (locals.isAuth) { %>
             <form action="/orders" method="POST">
               <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
