@@ -3,6 +3,7 @@ const addToCartButtonElement = document.querySelector(
 );
 const cartBadgeElements = document.querySelectorAll(".nav-items .badge");
 
+
 const addToCart = async (event) => {
   event.preventDefault();
   const { productId, csrfToken } = addToCartButtonElement.dataset;

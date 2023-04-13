@@ -7,6 +7,8 @@ const cartItemRemoveButtonElements = document.querySelectorAll(
   ".cart-item-buttons button"
 );
 const mainSectionElement = document.querySelector("#cart-items-section");
+const copyButton = document.querySelector(".btn-copy");
+
 
 const loadingElement = `<span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="31px" height="31px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 <g transform="rotate(0 50 50)">
@@ -173,6 +175,24 @@ async function removeCartItem(event) {
     return;
   }
 }
+
+const copyCardNumber = () => {
+  var copyText = document.getElementById("card-number");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyText.value);
+  
+  var tooltip = document.getElementById("copy-tooltip");
+  tooltip.innerHTML = "Copied";
+}
+
+const mouseOut = () => {
+  var tooltip = document.getElementById("copy-tooltip");
+  tooltip.innerHTML = "Copy to clipboard";
+}
+
+copyButton.addEventListener('click', copyCardNumber);
+copyButton.addEventListener('mouseout', mouseOut)
 
 for (const quantityElement of cartItemQuantityElements) {
   quantityElement.addEventListener("click", updateCartItem);

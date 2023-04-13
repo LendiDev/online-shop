@@ -39,7 +39,9 @@ const addNewOrder = async (req, res, next) => {
         currency: "gbp",
         product_data: {
           name: item.product.title,
-          images: [`${process.env.HOST_DOMAIN}${item.product.imageURL}`],
+          images: process.env.NODE_ENV === "production" ? [
+            `${process.env.HOST_DOMAIN}/${item.product.imageURL}`,
+          ] : [],
         },
         unit_amount: +item.product.price.toFixed(2) * 100,
       },
@@ -70,6 +72,7 @@ const getOrderDetails = async (req, res, next) => {
 
 const getOrderSuccess = async (req, res, next) => {
   req.session.cart = null;
+  res.locals.cart.emptyCart();
   res.status(200).render("customer/orders/success");
 };
 
